@@ -1,0 +1,14 @@
+﻿@model SubjectDTO
+<div>
+    <h4>Update a subjects</h4>
+    <form asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input type="text" asp-for="@Model.Name" class="form-control" />
+        </div>
+        <div>
+            <input class="btn btn-success" type="submit" value="Update" />
+        </div>
+    </form>
+</div>
+

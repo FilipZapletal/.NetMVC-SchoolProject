@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GradeDTO>
+
+<h1>List of all grades</h1>
+@foreach (var item in Model) {
+    <div title="@item.Id" class="border border-1 border-dark p-2">
+        <p> @item.StudentFullName</p>
+        <p> @item.SubjectName - @item.Topic - @item.Mark <br> @item.Date.ToShortDateString() </p>
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher"))) {
+            <a class="btn btn-warning" asp-controller="Grades" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <form method="post">
+                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
+            </form>
+        }
+    </div>
+}
+<hr />
+@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher"))) {
+    <div>
+        <a class="btn btn-success" asp-controller="Grades" asp-action="Create">Add a new grade</a>
+    </div>
+}

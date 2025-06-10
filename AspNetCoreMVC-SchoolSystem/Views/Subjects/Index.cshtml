@@ -1,0 +1,17 @@
+﻿@model IEnumerable<SubjectDTO>
+<h1>List of all subjects</h1>
+@foreach (var item in Model) {
+    <div class="border border-1 border-dark p-2 ">
+        <h5>@item.Name</h5>
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher"))) {
+            <a class="btn btn-warning" asp-controller="Subjects" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <form asp-action="Delete" method="post">
+                <button type="submit" class="btn btn-danger" asp-controller="Subjects" asp-route-id="@item.Id">Delete</button>
+            </form>
+        }
+    </div>
+}
+<hr />
+<div>
+    <a class="btn btn-success" asp-action="Create">Create</a>
+</div>

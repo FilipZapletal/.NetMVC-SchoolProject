@@ -1,0 +1,29 @@
+﻿@using AspNetCoreMVC_SchoolSystem.DTO
+@model IEnumerable<StudentDTO>
+
+<h1>Index</h1>
+<a asp-action="Create" class="btn btn-success text-warning">Create</a>
+
+<form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="Upload">
+    <div>
+        <input type="file" name="file" />
+        @*pozor, na name je zavisle jmeno parametru, cili souboru predavaneho do controlleru. Pokud se parametr ukládací metody v StudentContolleru jmenuje file, musi i name inputu byt file*@
+    </div>
+    <div>
+        <input type="submit" value="Upload" />
+    </div>
+</form>
+
+@foreach (var item in Model) {
+    <div class="border border-1 border-dark p-2 ">
+        <h5>@item.FirstName @item.LastName</h5>
+        Id: @item.Id
+        <p>Date of Birth: "@item.DateOfBirth.ToString()"</p>
+        <div class="d-inline">
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <form method="post">
+                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
+            </form>
+        </div>
+    </div>
+}
